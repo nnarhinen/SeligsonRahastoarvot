@@ -12,6 +12,7 @@
 		<item>Eurooppa</item>
     	<item>Aasia</item>
     	<item>Pohjois-Amerikka</item>
+    	<item>Kehittyvät markkinat (A)</item>
     	<item>Global Brands</item>
 		<item>Global Pharmaceuticals</item>
 		<item>Euro-obligaatio</item>
@@ -27,8 +28,9 @@
     	<item>http://www.seligson.fi/graafit/russia.csv</item>
     	<item>http://www.seligson.fi/graafit/suomi.csv</item>
     	<item>http://www.seligson.fi/graafit/eurooppa.csv</item>
-    	<item>http://www.seligson.fi/graafit/aps.csv</item>
+    	<item>http://www.seligson.fi/graafit/aasia.csv</item>
     	<item>http://www.seligson.fi/graafit/pohjoisamerikka.csv</item>
+    	<item>http://www.seligson.fi/graafit/kehittyva.csv</item>
     	<item>http://www.seligson.fi/graafit/global-brands.csv</item>
     	<item>http://www.seligson.fi/graafit/global-pharma.csv</item>
     	<item>http://www.seligson.fi/graafit/euroobligaatio.csv</item>
