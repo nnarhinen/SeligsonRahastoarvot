@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, CodesenseTesti!</string>
+    <string name="app_name">Seligson Rahastoarvot</string>
+    
+    <string-array name="fundNames">
+    	<item>Phoenix</item>
+		<item>Phoebus</item>
+		<item>Pharos</item>
+		<item>Russian Prosperity</item>
+		<item>Suomi</item>
+		<item>Eurooppa</item>
+    	<item>Aasia</item>
+    	<item>Pohjois-Amerikka</item>
+    	<item>Global Brands</item>
+		<item>Global Pharmaceuticals</item>
+		<item>Euro-obligaatio</item>
+		<item>Euro Corporate Bond</item>
+		<item>Rahamarkkinarahasto AAA</item>
+		<item>OMXH25 - indeksiosuusrahasto</item>
+    </string-array>
+    
+    <string-array name="fundUrls">
+    	<item>http://www.seligson.fi/graafit/phoenix.csv</item>
+    	<item>http://www.seligson.fi/graafit/phoebus.csv </item>
+    	<item>http://www.seligson.fi/graafit/pharos.csv</item>
+    	<item>http://www.seligson.fi/graafit/russia.csv</item>
+    	<item>http://www.seligson.fi/graafit/suomi.csv</item>
+    	<item>http://www.seligson.fi/graafit/eurooppa.csv</item>
+    	<item>http://www.seligson.fi/graafit/aps.csv</item>
+    	<item>http://www.seligson.fi/graafit/pohjoisamerikka.csv</item>
+    	<item>http://www.seligson.fi/graafit/global-brands.csv</item>
+    	<item>http://www.seligson.fi/graafit/global-pharma.csv</item>
+    	<item>http://www.seligson.fi/graafit/euroobligaatio.csv</item>
+    	<item>http://www.seligson.fi/graafit/eurocorporate.csv</item>
+    	<item>http://www.seligson.fi/graafit/rahamarkkina.csv</item>
+    	<item>http://www.seligson.fi/graafit/omxh25.csv</item>
+    </string-array>
+</resources>
