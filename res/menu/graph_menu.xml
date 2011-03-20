@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Valitse ajanjakso" android:id="@+id/itemInterval">
+    	<menu>
+    		<group android:checkableBehavior="single">
+	    		<item android:id="@+id/itemInterval1Month" android:title="1 kuukausi" />
+	    		<item android:id="@+id/itemInterval6Months" android:title="6 kuukautta" />
+	    		<item android:id="@+id/itemInterval12Months" android:title="1 vuosi" />
+	    		<item android:id="@+id/itemInterval60Months" android:title="5 vuotta" />
+	    		<item android:id="@+id/itemInterval120Months" android:title="10 vuotta" />
+	    	</group>
+    	</menu>
+    </item>
+</menu>

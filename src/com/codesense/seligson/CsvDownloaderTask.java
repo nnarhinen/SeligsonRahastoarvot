@@ -1,6 +1,8 @@
 package com.codesense.seligson;
 
 import java.io.BufferedReader;
+
+import android.app.ProgressDialog;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
@@ -20,7 +22,6 @@ import com.androidplot.xy.LineAndPointFormatter;
 import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYPlot;
 
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.http.AndroidHttpClient;
@@ -29,20 +30,51 @@ import android.os.AsyncTask;
 public class CsvDownloaderTask extends AsyncTask<String, Void, List<SeligsonDayValue>> {
 	
 	private final WeakReference<XYPlot> xyPlotReference;
-	private final WeakReference<ProgressDialog> progressDialogReference;
+	private final WeakReference<ProgressDialog> dialogReference;
+	private int months = 6;
+	private String url;
 	
-	public CsvDownloaderTask(XYPlot plot, ProgressDialog dialog) {
+	/**
+	 * @param months the months to set
+	 */
+	public void setMonths(int months) {
+		this.months = months;
+	}
+
+	/**
+	 * @return the months
+	 */
+	public int getMonths() {
+		return months;
+	}
+	
+	/**
+	 * @param url the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	public CsvDownloaderTask(ProgressDialog dialog, XYPlot plot, String url) {
 		xyPlotReference = new WeakReference<XYPlot>(plot);
-		progressDialogReference = new WeakReference<ProgressDialog>(dialog);
+		dialogReference = new WeakReference<ProgressDialog>(dialog);
+		this.url = url;
 	}
 
 	@Override
 	protected List<SeligsonDayValue> doInBackground(String... params) {
-		HttpClient client = AndroidHttpClient.newInstance(SeligsonRahastoArvot.softwareName);
-        HttpUriRequest request = new HttpGet(params[0]);
-        List<SeligsonDayValue> ret = new ArrayList<SeligsonDayValue>();
-        BufferedReader reader = null;
-        try {
+		BufferedReader reader = null;
+		List<SeligsonDayValue> ret = new ArrayList<SeligsonDayValue>();
+		try {
+			HttpClient client = AndroidHttpClient.newInstance(SeligsonRahastoArvot.softwareName);
+	        HttpUriRequest request = new HttpGet(url);
 			HttpResponse response = client.execute(request);
 			reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 			String line;
@@ -50,8 +82,14 @@ public class CsvDownloaderTask extends AsyncTask<String, Void, List<SeligsonDayV
 			while ((line = reader.readLine()) != null) {
 				String[] parts = line.split(";");
 				Date date = format.parse(parts[0]);
-				double value = Double.parseDouble(parts[1]);
-				ret.add(new SeligsonDayValue(date, value));
+				Calendar cal = Calendar.getInstance();
+		        cal.setTime(new Date());
+		        cal.add(Calendar.MONTH, -getMonths());
+		        Date minDate = cal.getTime();
+		        if (!date.before(minDate)) {
+					double value = Double.parseDouble(parts[1]);
+					ret.add(new SeligsonDayValue(date, value));
+		        }
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,13 +110,7 @@ public class CsvDownloaderTask extends AsyncTask<String, Void, List<SeligsonDayV
 			XYPlot plot = xyPlotReference.get();
 			// Create a couple arrays of y-values to plot:
 	        List<Double> numbers = new ArrayList<Double>();
-	        Calendar cal = Calendar.getInstance();
-	        cal.setTime(new Date());
-	        cal.add(Calendar.MONTH, -6);
-	        Date minDate = cal.getTime();
 	        for(SeligsonDayValue obj : values) {
-	        	if (obj.getDay().before(minDate))
-	        		continue;
 	        	numbers.add((double)obj.getDay().getTime());
 	        	numbers.add(obj.getValue());
 	        }
@@ -98,8 +130,8 @@ public class CsvDownloaderTask extends AsyncTask<String, Void, List<SeligsonDayV
 	 
 	        // by default, AndroidPlot displays developer guides to aid in laying out your plot.
 	        // To get rid of them call disableAllMarkup():
-	        progressDialogReference.get().cancel();
-	        plot.redraw();
+	        dialogReference.get().hide();
+	        plot.invalidate();
 	        
 		}
 	}
